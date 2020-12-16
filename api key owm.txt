@@ -1,0 +1,2 @@
+weather api key : c906da717db4970eb7f9e6b75abbf59b
+github token : 55771e363aea2e5725be2330c81547e2873a89e9
