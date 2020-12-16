@@ -13,7 +13,7 @@ import string
 import os
 from bs4 import BeautifulSoup
 from pyowm.owm import OWM
-
+# just a test message
 # defining Time function
 currentDT = datetime.datetime.now()
 
