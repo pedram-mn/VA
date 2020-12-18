@@ -1,5 +1,4 @@
 # importing modules
-# just a test message
 
 import datetime
 import googlesearch
@@ -14,10 +13,11 @@ import string
 import os
 from bs4 import BeautifulSoup
 from pyowm.owm import OWM
-# just a test message
-# defining Time function
+
 currentDT = datetime.datetime.now()
 
+
+# defining Time function
 
 def time():
     print("Today is %s" % (currentDT.strftime("%A")))
@@ -851,6 +851,7 @@ def GoogleBrowse(search):
 # defining forecast function
 
 def forecast(city):
+    # getting data from server
     global city_num
     owm = OWM('c906da717db4970eb7f9e6b75abbf59b')
     while True:
@@ -886,46 +887,73 @@ def forecast(city):
             print("city data not found, try another city...")
             break
         weather = observation.weather
+
+        # weather variables
+
         air_con = weather.detailed_status
         wind = weather.wind()
         w_dir = float(wind["deg"])
-        if (337.5 < w_dir <= 360) or (0 <= w_dir <= 22.5):
-            w_dir = "N(%sdegrees)" % (wind["deg"])
-        elif 22.5 < w_dir <= 67.5:
-            w_dir = "NW(%sdegrees)" % (wind["deg"])
-        elif 67.5 < w_dir <= 112.5:
-            w_dir = "W(%sdegrees)" % (wind["deg"])
-        elif 112.5 < w_dir <= 157.5:
-            w_dir = "SW(%sdegrees)" % (wind["deg"])
-        elif 157.5 < w_dir <= 202.5:
-            w_dir = "S(%sdegrees)" % (wind["deg"])
-        elif 202.5 < w_dir <= 247.5:
-            w_dir = "SE(%sdegrees)" % (wind["deg"])
-        elif 247.5 < w_dir <= 292.5:
-            w_dir = "E(%sdegrees)" % (wind["deg"])
-        elif 292.5 < w_dir <= 337.5:
-            w_dir = "W(%sdegrees)" % (wind["deg"])
         H_L_temp = weather.temperature("celsius")
         rain = weather.rain
-        if len(rain) == 0:
-            rain_1 = "0mm"
-            rain_3 = "0mm"
+        press = weather.pressure
+        try:
+            pressure = str(int(press["press"]) * 0.001)
+        except:
+            pressure = "Not Found"
+        if press["sea_level"] is None:
+            sea_level = "Not Found"
         else:
+            sea_level = press["sea_level"]
+
+        # wind direction part
+
+        if (337.5 < w_dir <= 360) or (0 <= w_dir <= 22.5):
+            w_dir = "N (%sdegrees)" % (wind["deg"])
+        elif 22.5 < w_dir <= 67.5:
+            w_dir = "NW (%sdegrees)" % (wind["deg"])
+        elif 67.5 < w_dir <= 112.5:
+            w_dir = "W (%sdegrees)" % (wind["deg"])
+        elif 112.5 < w_dir <= 157.5:
+            w_dir = "SW (%sdegrees)" % (wind["deg"])
+        elif 157.5 < w_dir <= 202.5:
+            w_dir = "S (%sdegrees)" % (wind["deg"])
+        elif 202.5 < w_dir <= 247.5:
+            w_dir = "SE (%sdegrees)" % (wind["deg"])
+        elif 247.5 < w_dir <= 292.5:
+            w_dir = "E (%sdegrees)" % (wind["deg"])
+        elif 292.5 < w_dir <= 337.5:
+            w_dir = "W (%sdegrees)" % (wind["deg"])
+
+        # rain part
+
+        rain_1 = "0"
+        rain_3 = "0"
+        try:
             rain_1 = rain["1h"]
+        except:
+            pass
+        try:
             rain_3 = rain["3h"]
+        except:
+            pass
+
+        # result part
+
         print("""\n%s, %s 
-%s, %s:
-\n    %s
-    wind speed:%s(m/s)  %s""" % (
+    %s, %s:
+    \n    %s
+        wind speed:%s(m/s)  %s""" % (
             city_list[city_num - 1][1], city_list[city_num - 1][2], currentDT.strftime("%A"),
             currentDT.strftime("%B %d"),
             air_con, wind["speed"], w_dir))
         print("""\n    current temp :%s
-    lowest temp :%s celsius
-    highest temp :%s celsius
-    feels like :%s""" % (H_L_temp["temp"], H_L_temp["temp_min"], H_L_temp["temp_max"], H_L_temp["feels_like"]))
-        print("""\n    rain (last 1 hour) :%s
-         (last 3 hour) :%s""" % (rain_1, rain_3))
+        lowest temp :%s celsius
+        highest temp :%s celsius
+        feels like :%s""" % (H_L_temp["temp"], H_L_temp["temp_min"], H_L_temp["temp_max"], H_L_temp["feels_like"]))
+        print("""\n    rain (last 1 hour) :%s mm
+             (last 3 hour) :%s mm""" % (rain_1, rain_3))
+        print("""\n     air pressure : %s atm
+         sea level : %s """ % (pressure, sea_level))
         break
 
 
