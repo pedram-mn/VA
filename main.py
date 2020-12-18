@@ -1041,3 +1041,4 @@ while True:
         go_to(go_to_regex.search(command).group(1))
     if re.match(forecast_regex, command) is not None:
         forecast(forecast_regex.search(command).group(1))
+
