@@ -13,7 +13,7 @@ import string
 import os
 from bs4 import BeautifulSoup
 from pyowm.owm import OWM
-
+import json
 currentDT = datetime.datetime.now()
 
 
@@ -845,31 +845,27 @@ def GoogleBrowse(search):
             except:
                 print("unsupported input, try again...")
     except:
-        print("Connection Error, check your internet connection and try agin...")
+        print("Connection Error, check your internet connection and try again...")
 
 
 # defining forecast function
 
 def forecast(city):
-    # getting data from server
+    # getting input city matches and printing them
     global city_num
-    owm = OWM('c906da717db4970eb7f9e6b75abbf59b')
+    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90&&q=%s" % city
+    cities = json.loads(requests.get(cities_URL).text)
+    if len(cities) == 0:
+        print("No city found")
+    for i in range(len(cities)):
+        print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",", cities[i]["Country"]["EnglishName"])
+    # choosing the city
     while True:
-        reg = owm.city_id_registry()
-        city_list = reg.ids_for(city)
-        if len(city_list) == 0:
-            print("city not found, try again...")
-            break
-        else:
-            for i in range(len(city_list)):
-                print(i + 1, ": %s, %s" % (city_list[i][1], city_list[i][2]))
-            break
-    while True:
-        if len(city_list) == 0:
+        if len(cities) == 0:
             break
         try:
-            city_num = int(input("enter the number of city you mean : "))
-            if city_num > len(city_list) or city_num == 0:
+            city_num = int(input("enter the number of city : "))
+            if city_num > len(cities) or city_num == 0:
                 raise IndexError
             else:
                 break
@@ -877,85 +873,15 @@ def forecast(city):
             print("wrong format, try again...")
         except IndexError:
             print("number out of range, try again...")
-    while True:
-        if len(city_list) == 0:
-            break
-        mgr = owm.weather_manager()
-        try:
-            observation = mgr.weather_at_place("%s,%s" % (city_list[city_num - 1][1], city_list[city_num - 1][2]))
-        except:
-            print("city data not found, try another city...")
-            break
-        weather = observation.weather
-
-        # weather variables
-
-        air_con = weather.detailed_status
-        wind = weather.wind()
-        w_dir = float(wind["deg"])
-        H_L_temp = weather.temperature("celsius")
-        rain = weather.rain
-        press = weather.pressure
-        try:
-            pressure = str(int(press["press"]) * 0.001)
-        except:
-            pressure = "Not Found"
-        if press["sea_level"] is None:
-            sea_level = "Not Found"
-        else:
-            sea_level = press["sea_level"]
-
-        # wind direction part
-
-        if (337.5 < w_dir <= 360) or (0 <= w_dir <= 22.5):
-            w_dir = "N (%sdegrees)" % (wind["deg"])
-        elif 22.5 < w_dir <= 67.5:
-            w_dir = "NW (%sdegrees)" % (wind["deg"])
-        elif 67.5 < w_dir <= 112.5:
-            w_dir = "W (%sdegrees)" % (wind["deg"])
-        elif 112.5 < w_dir <= 157.5:
-            w_dir = "SW (%sdegrees)" % (wind["deg"])
-        elif 157.5 < w_dir <= 202.5:
-            w_dir = "S (%sdegrees)" % (wind["deg"])
-        elif 202.5 < w_dir <= 247.5:
-            w_dir = "SE (%sdegrees)" % (wind["deg"])
-        elif 247.5 < w_dir <= 292.5:
-            w_dir = "E (%sdegrees)" % (wind["deg"])
-        elif 292.5 < w_dir <= 337.5:
-            w_dir = "W (%sdegrees)" % (wind["deg"])
-
-        # rain part
-
-        rain_1 = "0"
-        rain_3 = "0"
-        try:
-            rain_1 = rain["1h"]
-        except:
-            pass
-        try:
-            rain_3 = rain["3h"]
-        except:
-            pass
-
-        # result part
-
-        print("""\n%s, %s 
-    %s, %s:
-    \n    %s
-        wind speed:%s(m/s)  %s""" % (
-            city_list[city_num - 1][1], city_list[city_num - 1][2], currentDT.strftime("%A"),
-            currentDT.strftime("%B %d"),
-            air_con, wind["speed"], w_dir))
-        print("""\n    current temp :%s
-        lowest temp :%s celsius
-        highest temp :%s celsius
-        feels like :%s""" % (H_L_temp["temp"], H_L_temp["temp_min"], H_L_temp["temp_max"], H_L_temp["feels_like"]))
-        print("""\n    rain (last 1 hour) :%s mm
-             (last 3 hour) :%s mm""" % (rain_1, rain_3))
-        print("""\n     air pressure : %s atm
-         sea level : %s """ % (pressure, sea_level))
-        break
-
+    Key = cities[city_num-1]["Key"]
+    current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90" % Key
+    print(json.loads(requests.get(current_URL).text))
+    current_data = json.loads(requests.get(current_URL).text)
+    current_co = current_data[0]["WeatherText"]
+    current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
+    current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
+    current_pre = current_data[0]["PrecipitationType"]
+    print(current_pre)
 
 # defining copy function
 
@@ -1041,4 +967,3 @@ while True:
         go_to(go_to_regex.search(command).group(1))
     if re.match(forecast_regex, command) is not None:
         forecast(forecast_regex.search(command).group(1))
-
