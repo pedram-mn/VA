@@ -851,9 +851,12 @@ def GoogleBrowse(search):
 # defining forecast function
 
 def forecast(city):
+    # list of all weather api keys
+    keys = (open("accua_api_key.txt", "r").read()).split("\\")
     # getting input city matches and printing them
     global city_num
-    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90&&q=%s" % city
+    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=%S&&q=%s" % (key, city)
+    print("done!")
     cities = json.loads(requests.get(cities_URL).text)
     if len(cities) == 0:
         print("No city found")
