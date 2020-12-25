@@ -851,17 +851,26 @@ def GoogleBrowse(search):
 # defining forecast function
 
 def forecast(city):
+    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90&&q=%s" % city
+    cities = json.loads(requests.get(cities_URL).text)
     # list of all weather api keys
     keys = (open("accua_api_key.txt", "r").read()).split("\\")
     # getting input city matches and printing them
     global city_num
-    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=%S&&q=%s" % (key, city)
-    print("done!")
-    cities = json.loads(requests.get(cities_URL).text)
+    cities = []
+    for i in range(len(keys)):
+        key = keys[i]
+        cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=%s&&q=%s" % (key, city)
+        cities = json.loads(requests.get(cities_URL).text)
+        if type(cities) == dict and cities["Message"] == "The allowed number of requests has been exceeded.":
+            pass
+        else:
+            break
     if len(cities) == 0:
         print("No city found")
-    for i in range(len(cities)):
-        print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",", cities[i]["Country"]["EnglishName"])
+    else:
+        for i in range(len(cities)):
+            print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",", cities[i]["Country"]["EnglishName"])
     # choosing the city
     while True:
         if len(cities) == 0:
@@ -876,15 +885,19 @@ def forecast(city):
             print("wrong format, try again...")
         except IndexError:
             print("number out of range, try again...")
-    Key = cities[city_num-1]["Key"]
-    current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90" % Key
-    print(json.loads(requests.get(current_URL).text))
-    current_data = json.loads(requests.get(current_URL).text)
-    current_co = current_data[0]["WeatherText"]
-    current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
-    current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
-    current_pre = current_data[0]["PrecipitationType"]
-    print(current_pre)
+    while True:
+        if len(cities) == 0:
+            break
+        C_key = cities[city_num-1]["Key"]
+        current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
+        print(json.loads(requests.get(current_URL).text))
+        current_data = json.loads(requests.get(current_URL).text)
+        current_co = current_data[0]["WeatherText"]
+        current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
+        current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
+        current_pre = current_data[0]["PrecipitationType"]
+        print(current_pre)
+        break
 
 # defining copy function
 
