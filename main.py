@@ -880,6 +880,7 @@ def forecast(city):
             if city_num > len(cities) or city_num == 0:
                 raise IndexError
             else:
+                city = cities[city_num-1]
                 break
         except ValueError:
             print("wrong format, try again...")
@@ -896,9 +897,14 @@ def forecast(city):
         current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
         current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
         current_pre = current_data[0]["PrecipitationType"]
-        print(current_pre)
         break
-
+    while True:
+        if len(cities) == 0:
+            break
+        print(city["EnglishName"], ",", city["AdministrativeArea"]["EnglishName"], ",", city["Country"]["EnglishName"])
+        print(current_data[0]["LocalObservationDateTime"][:10], " ", current_data[0]["LocalObservationDateTime"][11:16])
+        print("""\n     """)
+        break
 # defining copy function
 
 def copy(tar, des):
