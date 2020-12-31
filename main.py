@@ -908,6 +908,8 @@ def forecast(city):
     Temp : %sC (%sF)
     precipitation : %s""" % (current_co, current_C_temp, current_F_temp, current_pre))
         break
+
+
 # defining copy function
 
 def copy(tar, des):
