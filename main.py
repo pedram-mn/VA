@@ -891,7 +891,7 @@ def forecast(city):
             break
         C_key = cities[city_num-1]["Key"]
         current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
-        print(json.loads(requests.get(current_URL).text))
+        # print(json.loads(requests.get(current_URL).text))
         current_data = json.loads(requests.get(current_URL).text)
         current_co = current_data[0]["WeatherText"]
         current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
@@ -901,9 +901,12 @@ def forecast(city):
     while True:
         if len(cities) == 0:
             break
+        print("\n")
         print(city["EnglishName"], ",", city["AdministrativeArea"]["EnglishName"], ",", city["Country"]["EnglishName"])
         print(current_data[0]["LocalObservationDateTime"][:10], " ", current_data[0]["LocalObservationDateTime"][11:16])
-        print("""\n     """)
+        print("""\n    %s
+    Temp : %sC (%sF)
+    precipitation : %s""" % (current_co, current_C_temp, current_F_temp, current_pre))
         break
 # defining copy function
 
