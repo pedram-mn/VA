@@ -890,6 +890,9 @@ def forecast(city):
         if len(cities) == 0:
             break
         C_key = cities[city_num-1]["Key"]
+
+        # current weather data
+
         current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
         # print(json.loads(requests.get(current_URL).text))
         current_data = json.loads(requests.get(current_URL).text)
@@ -897,6 +900,103 @@ def forecast(city):
         current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
         current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
         current_pre = current_data[0]["PrecipitationType"]
+
+        # today forecast data
+
+        FiveDay_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/%s?apikey=%s" % (C_key, key)
+        FiveDay_data = json.loads(requests.get(FiveDay_URL).text)
+        print(FiveDay_data)
+        Today_date = FiveDay_data["DailyForecasts"][0]["Date"][:10]
+        Today_text = FiveDay_data["Headline"]["Text"]
+        Today_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        Today_LowTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]
+        Today_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]-32)*5/9))
+        Today_LowTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]
+        Today_DayCond = FiveDay_data["DailyForecasts"][0]["Day"]["IconPhrase"]
+        Today_NightCond = FiveDay_data["DailyForecasts"][0]["Night"]["IconPhrase"]
+        Today_DayPre_st = FiveDay_data["DailyForecasts"][0]["Day"]["HasPrecipitation"]
+        Today_NightPre_st = FiveDay_data["DailyForecasts"][0]["Night"]["HasPrecipitation"]
+        Today_DayPre = "None"
+        if Today_DayPre_st:
+            Today_DayPre = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationType"]
+            Today_DayPre_intensity = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationIntensity"]
+        Today_NightPre = "None"
+        if Today_NightPre_st:
+            Today_NightPre = FiveDay_data["DailyForecasts"][0]["Night"]["PrecipitationType"]
+            Today_NightPre_intensity = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationIntensity"]
+
+
+        # 1 day later forecast data
+
+        day1_date = FiveDay_data["DailyForecasts"][1]["Date"][:10]
+        day1_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day1_LowTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]
+        day1_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]-32)*5/9))
+        day1_LowTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]
+        day1_DayCond = FiveDay_data["DailyForecasts"][1]["Day"]["IconPhrase"]
+        day1_NightCond = FiveDay_data["DailyForecasts"][1]["Night"]["IconPhrase"]
+        day1_DayPre_st = FiveDay_data["DailyForecasts"][1]["Day"]["HasPrecipitation"]
+        day1_NightPre_st = FiveDay_data["DailyForecasts"][1]["Night"]["HasPrecipitation"]
+        day1_DayPre = "None"
+        if day1_DayPre_st:
+            day1_DayPre = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationType"]
+            day1_DayPre_intensity = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationIntensity"]
+        day1_NightPre = "None"
+        if day1_NightPre_st:
+            day1_NightPre = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationType"]
+            day1_NightPre_intensity = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationIntensity"]
+
+
+        # 2 day later forecast data
+        day1_date = FiveDay_data["DailyForecasts"][1]["Date"][:10]
+        day2_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]
+        day2_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]-32)*5/9))
+        day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]
+        day2_DayCond = FiveDay_data["DailyForecasts"][2]["Day"]["IconPhrase"]
+        day2_NightCond = FiveDay_data["DailyForecasts"][2]["Night"]["IconPhrase"]
+        day2_DayPre_st = FiveDay_data["DailyForecasts"][2]["Day"]["HasPrecipitation"]
+        day2_NightPre_st = FiveDay_data["DailyForecasts"][2]["Night"]["HasPrecipitation"]
+        day2_DayPre = "None"
+        if day2_DayPre_st:
+            day2_DayPre = FiveDay_data["DailyForecasts"][2]["Day"]["PrecipitationType"]
+        day2_NightPre = "None"
+        if day2_NightPre_st:
+            day2_NightPre = FiveDay_data["DailyForecasts"][2]["Night"]["PrecipitationType"]
+
+        # 3 day later forecast data
+
+        day3_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]
+        day3_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]-32)*5/9))
+        day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]
+        day3_DayCond = FiveDay_data["DailyForecasts"][3]["Day"]["IconPhrase"]
+        day3_NightCond = FiveDay_data["DailyForecasts"][3]["Night"]["IconPhrase"]
+        day3_DayPre_st = FiveDay_data["DailyForecasts"][3]["Day"]["HasPrecipitation"]
+        day3_NightPre_st = FiveDay_data["DailyForecasts"][3]["Night"]["HasPrecipitation"]
+        day3_DayPre = "None"
+        if day3_DayPre_st:
+            day3_DayPre = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationType"]
+        day3_NightPre = "None"
+        if day3_NightPre_st:
+            day3_NightPre = FiveDay_data[0]["DailyForecasts"][3]["Night"]["PrecipitationType"]
+
+        # 4 day later forecast data
+
+        day4_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]
+        day4_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]-32)*5/9))
+        day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]
+        day4_DayCond = FiveDay_data["DailyForecasts"][4]["Day"]["IconPhrase"]
+        day4_NightCond = FiveDay_data["DailyForecasts"][4]["Night"]["IconPhrase"]
+        day4_DayPre_st = FiveDay_data["DailyForecasts"][4]["Day"]["HasPrecipitation"]
+        day4_NightPre_st = FiveDay_data["DailyForecasts"][4]["Night"]["HasPrecipitation"]
+        day4_DayPre = "None"
+        if day4_DayPre_st:
+            day4_DayPre = FiveDay_data["DailyForecasts"][4]["Day"]["PrecipitationType"]
+        day4_NightPre = "None"
+        if day4_NightPre_st:
+            day4_NightPre = FiveDay_data["DailyForecasts"][4]["Night"]["PrecipitationType"]
         break
     while True:
         if len(cities) == 0:
