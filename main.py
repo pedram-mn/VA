@@ -917,14 +917,13 @@ def forecast(city):
         Today_DayPre_st = FiveDay_data["DailyForecasts"][0]["Day"]["HasPrecipitation"]
         Today_NightPre_st = FiveDay_data["DailyForecasts"][0]["Night"]["HasPrecipitation"]
         Today_DayPre = "None"
+        Today_NightPre = "None"
         if Today_DayPre_st:
             Today_DayPre = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationType"]
             Today_DayPre_intensity = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationIntensity"]
-        Today_NightPre = "None"
         if Today_NightPre_st:
             Today_NightPre = FiveDay_data["DailyForecasts"][0]["Night"]["PrecipitationType"]
             Today_NightPre_intensity = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationIntensity"]
-
 
         # 1 day later forecast data
 
@@ -938,17 +937,17 @@ def forecast(city):
         day1_DayPre_st = FiveDay_data["DailyForecasts"][1]["Day"]["HasPrecipitation"]
         day1_NightPre_st = FiveDay_data["DailyForecasts"][1]["Night"]["HasPrecipitation"]
         day1_DayPre = "None"
+        day1_NightPre = "None"
         if day1_DayPre_st:
             day1_DayPre = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationType"]
             day1_DayPre_intensity = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationIntensity"]
-        day1_NightPre = "None"
         if day1_NightPre_st:
             day1_NightPre = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationType"]
             day1_NightPre_intensity = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationIntensity"]
 
-
         # 2 day later forecast data
-        day1_date = FiveDay_data["DailyForecasts"][1]["Date"][:10]
+
+        day2_date = FiveDay_data["DailyForecasts"][2]["Date"][:10]
         day2_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]-32)*5/9))
         day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]
         day2_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]-32)*5/9))
@@ -958,14 +957,17 @@ def forecast(city):
         day2_DayPre_st = FiveDay_data["DailyForecasts"][2]["Day"]["HasPrecipitation"]
         day2_NightPre_st = FiveDay_data["DailyForecasts"][2]["Night"]["HasPrecipitation"]
         day2_DayPre = "None"
+        day2_NightPre = "None"
         if day2_DayPre_st:
             day2_DayPre = FiveDay_data["DailyForecasts"][2]["Day"]["PrecipitationType"]
-        day2_NightPre = "None"
+            day2_DayPre_intensity = FiveDay_data["DailyForecasts"][2]["Day"]["PrecipitationIntensity"]
         if day2_NightPre_st:
             day2_NightPre = FiveDay_data["DailyForecasts"][2]["Night"]["PrecipitationType"]
+            day2_NightPre_intensity = FiveDay_data["DailyForecasts"][2]["Night"]["PrecipitationIntensity"]
 
         # 3 day later forecast data
 
+        day3_date = FiveDay_data["DailyForecasts"][3]["Date"][:10]
         day3_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]-32)*5/9))
         day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]
         day3_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]-32)*5/9))
@@ -975,14 +977,17 @@ def forecast(city):
         day3_DayPre_st = FiveDay_data["DailyForecasts"][3]["Day"]["HasPrecipitation"]
         day3_NightPre_st = FiveDay_data["DailyForecasts"][3]["Night"]["HasPrecipitation"]
         day3_DayPre = "None"
+        day3_NightPre = "None"
         if day3_DayPre_st:
             day3_DayPre = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationType"]
-        day3_NightPre = "None"
+            day3_DayPre_intensity = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationIntensity"]
         if day3_NightPre_st:
             day3_NightPre = FiveDay_data[0]["DailyForecasts"][3]["Night"]["PrecipitationType"]
+            day3_NightPre_intensity = FiveDay_data["DailyForecasts"][3]["Night"]["PrecipitationIntensity"]
 
         # 4 day later forecast data
 
+        day4_date = FiveDay_data["DailyForecasts"][4]["Date"][:10]
         day4_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]-32)*5/9))
         day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]
         day4_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]-32)*5/9))
@@ -992,11 +997,13 @@ def forecast(city):
         day4_DayPre_st = FiveDay_data["DailyForecasts"][4]["Day"]["HasPrecipitation"]
         day4_NightPre_st = FiveDay_data["DailyForecasts"][4]["Night"]["HasPrecipitation"]
         day4_DayPre = "None"
+        day4_NightPre = "None"
         if day4_DayPre_st:
             day4_DayPre = FiveDay_data["DailyForecasts"][4]["Day"]["PrecipitationType"]
-        day4_NightPre = "None"
+            day4_DayPre_intensity = FiveDay_data["DailyForecasts"][4]["Day"]["PrecipitationIntensity"]
         if day4_NightPre_st:
             day4_NightPre = FiveDay_data["DailyForecasts"][4]["Night"]["PrecipitationType"]
+            day4_NightPre_intensity = FiveDay_data["DailyForecasts"][4]["Night"]["PrecipitationIntensity"]
         break
     while True:
         if len(cities) == 0:
@@ -1007,6 +1014,7 @@ def forecast(city):
         print("""\n    %s
     Temp : %sC (%sF)
     precipitation : %s""" % (current_co, current_C_temp, current_F_temp, current_pre))
+        print("""""")
         break
 
 
@@ -1092,5 +1100,5 @@ while True:
         send_Email(email_regex.search(command).group(1), email_regex.search(command).group(2))
     if re.match(go_to_regex, command) is not None:
         go_to(go_to_regex.search(command).group(1))
-    if re.match(forecast_regex, command) is not None:
+    if re.match(forecast_regex, command) != None:
         forecast(forecast_regex.search(command).group(1))
