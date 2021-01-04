@@ -870,7 +870,8 @@ def forecast(city):
         print("No city found")
     else:
         for i in range(len(cities)):
-            print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",", cities[i]["Country"]["EnglishName"])
+            print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",",
+            cities[i]["Country"]["EnglishName"])
     # choosing the city
     while True:
         if len(cities) == 0:
@@ -894,7 +895,6 @@ def forecast(city):
         # current weather data
 
         current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
-        # print(json.loads(requests.get(current_URL).text))
         current_data = json.loads(requests.get(current_URL).text)
         current_co = current_data[0]["WeatherText"]
         current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
@@ -905,39 +905,42 @@ def forecast(city):
 
         FiveDay_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/%s?apikey=%s" % (C_key, key)
         FiveDay_data = json.loads(requests.get(FiveDay_URL).text)
-        print(FiveDay_data)
         Today_date = FiveDay_data["DailyForecasts"][0]["Date"][:10]
         Today_text = FiveDay_data["Headline"]["Text"]
-        Today_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        Today_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9)
+                                    , 2))
         Today_LowTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]
-        Today_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]-32)*5/9))
-        Today_LowTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]
+        Today_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]-32)*5/9)
+                                    , 2))
+        Today_MaxTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]
         Today_DayCond = FiveDay_data["DailyForecasts"][0]["Day"]["IconPhrase"]
         Today_NightCond = FiveDay_data["DailyForecasts"][0]["Night"]["IconPhrase"]
         Today_DayPre_st = FiveDay_data["DailyForecasts"][0]["Day"]["HasPrecipitation"]
         Today_NightPre_st = FiveDay_data["DailyForecasts"][0]["Night"]["HasPrecipitation"]
-        Today_DayPre = "None"
-        Today_NightPre = "None"
+        Today_DayPre, Today_DayPre_intensity = "None", "None"
+        Today_NightPre, Today_NightPre_intensity = "None", "None"
         if Today_DayPre_st:
             Today_DayPre = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationType"]
             Today_DayPre_intensity = FiveDay_data["DailyForecasts"][0]["Day"]["PrecipitationIntensity"]
         if Today_NightPre_st:
             Today_NightPre = FiveDay_data["DailyForecasts"][0]["Night"]["PrecipitationType"]
-            Today_NightPre_intensity = FiveDay_data["DailyForecasts"][1]["Night"]["PrecipitationIntensity"]
+            Today_NightPre_intensity = FiveDay_data["DailyForecasts"][0]["Night"]["PrecipitationIntensity"]
 
         # 1 day later forecast data
 
         day1_date = FiveDay_data["DailyForecasts"][1]["Date"][:10]
-        day1_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day1_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]-32)*5/9),
+                                   2))
         day1_LowTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]
-        day1_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]-32)*5/9))
-        day1_LowTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]
+        day1_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]-32)*5/9),
+                                   2))
+        day1_MaxTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]
         day1_DayCond = FiveDay_data["DailyForecasts"][1]["Day"]["IconPhrase"]
         day1_NightCond = FiveDay_data["DailyForecasts"][1]["Night"]["IconPhrase"]
         day1_DayPre_st = FiveDay_data["DailyForecasts"][1]["Day"]["HasPrecipitation"]
         day1_NightPre_st = FiveDay_data["DailyForecasts"][1]["Night"]["HasPrecipitation"]
-        day1_DayPre = "None"
-        day1_NightPre = "None"
+        day1_DayPre, day1_DayPre_intensity = "None", "None"
+        day1_NightPre, day1_NightPre_intensity = "None", "None"
         if day1_DayPre_st:
             day1_DayPre = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationType"]
             day1_DayPre_intensity = FiveDay_data["DailyForecasts"][1]["Day"]["PrecipitationIntensity"]
@@ -948,16 +951,18 @@ def forecast(city):
         # 2 day later forecast data
 
         day2_date = FiveDay_data["DailyForecasts"][2]["Date"][:10]
-        day2_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day2_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]-32)*5/9),
+                                   2))
         day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]
-        day2_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]-32)*5/9))
-        day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]
+        day2_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]-32)*5/9),
+                                   2))
+        day2_MaxTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]
         day2_DayCond = FiveDay_data["DailyForecasts"][2]["Day"]["IconPhrase"]
         day2_NightCond = FiveDay_data["DailyForecasts"][2]["Night"]["IconPhrase"]
         day2_DayPre_st = FiveDay_data["DailyForecasts"][2]["Day"]["HasPrecipitation"]
         day2_NightPre_st = FiveDay_data["DailyForecasts"][2]["Night"]["HasPrecipitation"]
-        day2_DayPre = "None"
-        day2_NightPre = "None"
+        day2_DayPre, day2_DayPre_intensity = "None", "None"
+        day2_NightPre, day2_NightPre_intensity = "None", "None"
         if day2_DayPre_st:
             day2_DayPre = FiveDay_data["DailyForecasts"][2]["Day"]["PrecipitationType"]
             day2_DayPre_intensity = FiveDay_data["DailyForecasts"][2]["Day"]["PrecipitationIntensity"]
@@ -968,16 +973,18 @@ def forecast(city):
         # 3 day later forecast data
 
         day3_date = FiveDay_data["DailyForecasts"][3]["Date"][:10]
-        day3_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day3_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]-32)*5/9),
+                                   2))
         day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]
-        day3_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]-32)*5/9))
-        day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]
+        day3_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]-32)*5/9),
+                                   2))
+        day3_MaxTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]
         day3_DayCond = FiveDay_data["DailyForecasts"][3]["Day"]["IconPhrase"]
         day3_NightCond = FiveDay_data["DailyForecasts"][3]["Night"]["IconPhrase"]
         day3_DayPre_st = FiveDay_data["DailyForecasts"][3]["Day"]["HasPrecipitation"]
         day3_NightPre_st = FiveDay_data["DailyForecasts"][3]["Night"]["HasPrecipitation"]
-        day3_DayPre = "None"
-        day3_NightPre = "None"
+        day3_DayPre, day3_DayPre_intensity = "None", "None"
+        day3_NightPre, day3_NightPre_intensity = "None", "None"
         if day3_DayPre_st:
             day3_DayPre = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationType"]
             day3_DayPre_intensity = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationIntensity"]
@@ -988,16 +995,18 @@ def forecast(city):
         # 4 day later forecast data
 
         day4_date = FiveDay_data["DailyForecasts"][4]["Date"][:10]
-        day4_LowTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]-32)*5/9))
+        day4_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]-32)*5/9),
+                                   2))
         day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]
-        day4_MaxTemp_C = str(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]-32)*5/9))
-        day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]
+        day4_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]-32)*5/9),
+                                   2))
+        day4_MaxTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]
         day4_DayCond = FiveDay_data["DailyForecasts"][4]["Day"]["IconPhrase"]
         day4_NightCond = FiveDay_data["DailyForecasts"][4]["Night"]["IconPhrase"]
         day4_DayPre_st = FiveDay_data["DailyForecasts"][4]["Day"]["HasPrecipitation"]
         day4_NightPre_st = FiveDay_data["DailyForecasts"][4]["Night"]["HasPrecipitation"]
-        day4_DayPre = "None"
-        day4_NightPre = "None"
+        day4_DayPre, day4_DayPre_intensity = "None", "None"
+        day4_NightPre, day4_NightPre_intensity = "None", "None"
         if day4_DayPre_st:
             day4_DayPre = FiveDay_data["DailyForecasts"][4]["Day"]["PrecipitationType"]
             day4_DayPre_intensity = FiveDay_data["DailyForecasts"][4]["Day"]["PrecipitationIntensity"]
@@ -1013,8 +1022,89 @@ def forecast(city):
         print(current_data[0]["LocalObservationDateTime"][:10], " ", current_data[0]["LocalObservationDateTime"][11:16])
         print("""\n    %s
     Temp : %sC (%sF)
-    precipitation : %s""" % (current_co, current_C_temp, current_F_temp, current_pre))
-        print("""""")
+    precipitation : %s
+-------------------------------------------------""" % (current_co, current_C_temp, current_F_temp, current_pre))
+        print("""\n    FORECAST\n
+        Today:  %s
+          %s
+          lowest temp:  %sC (%sF)
+          highest temp: %sC (%sF)
+                          
+          Day:
+            %s
+            precipitation: %s
+            precipitation intensity: %s
+                          
+          Night:
+            %s
+            precipitation: %s
+            precipitation intensity: %s""" % (Today_date, Today_text, Today_LowTemp_C, Today_LowTemp_F, Today_MaxTemp_C,
+                                              Today_MaxTemp_F, Today_DayCond, Today_DayPre, Today_DayPre_intensity,
+                                              Today_NightCond, Today_NightPre, Today_NightPre_intensity))
+        print("""-------------------------------------------------
+        %s
+          lowest temp:  %sC (%sF)
+          highest temp: %sC (%sF)
+
+          Day:
+            %s
+            precipitation: %s
+            precipitation intensity: %s
+
+          Night:
+            %s
+            precipitation: %s
+            precipitation intensity: %s""" % (day1_date, day1_LowTemp_C, day1_LowTemp_F, day1_MaxTemp_C, day1_MaxTemp_F,
+                                              day1_DayCond, day1_DayPre, day1_DayPre_intensity, day1_NightCond,
+                                              day1_NightPre, day1_NightPre_intensity))
+        print("""-------------------------------------------------
+        %s
+          lowest temp:  %sC (%sF)
+          highest temp: %sC (%sF)
+
+          Day:
+            %s
+            precipitation: %s
+            precipitation intensity: %s
+
+          Night:
+            %s
+            precipitation: %s
+            precipitation intensity: %s""" % (day2_date, day2_LowTemp_C, day2_LowTemp_F, day2_MaxTemp_C, day2_MaxTemp_F,
+                                              day2_DayCond, day2_DayPre, day2_DayPre_intensity, day2_NightCond,
+                                              day2_NightPre, day2_NightPre_intensity))
+        print("""-------------------------------------------------
+        %s
+          lowest temp:  %sC (%sF)
+          highest temp: %sC (%sF)
+
+          Day:
+            %s
+            precipitation: %s
+            precipitation intensity: %s
+
+          Night:
+            %s
+            precipitation: %s
+            precipitation intensity: %s""" % (day3_date, day3_LowTemp_C, day3_LowTemp_F, day3_MaxTemp_C, day3_MaxTemp_F,
+                                              day3_DayCond, day3_DayPre, day3_DayPre_intensity, day3_NightCond,
+                                              day3_NightPre, day3_NightPre_intensity))
+        print("""-------------------------------------------------
+        %s
+          lowest temp:  %sC (%sF)
+          highest temp: %sC (%sF)
+
+          Day:
+            %s
+            precipitation: %s
+            precipitation intensity: %s
+
+          Night:
+            %s
+            precipitation: %s
+            precipitation intensity: %s""" % (day4_date, day4_LowTemp_C, day4_LowTemp_F, day4_MaxTemp_C, day4_MaxTemp_F,
+                                              day4_DayCond, day4_DayPre, day4_DayPre_intensity, day4_NightCond,
+                                              day4_NightPre, day4_NightPre_intensity))
         break
 
 
