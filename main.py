@@ -12,8 +12,8 @@ import webbrowser
 import string
 import os
 from bs4 import BeautifulSoup
-from pyowm.owm import OWM
 import json
+
 currentDT = datetime.datetime.now()
 
 
@@ -851,7 +851,8 @@ def GoogleBrowse(search):
 # defining forecast function
 
 def forecast(city):
-    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90&&q=%s" % city
+    cities_URL = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey" \
+                 "=9vmZO6KUP3RsL1RJoW4YVmlzjOb5CL90&&q=%s" % city
     cities = json.loads(requests.get(cities_URL).text)
     # list of all weather api keys
     keys = (open("accua_api_key.txt", "r").read()).split("\\")
@@ -871,7 +872,7 @@ def forecast(city):
     else:
         for i in range(len(cities)):
             print(i + 1, ": ", cities[i]["EnglishName"], ",", cities[i]["AdministrativeArea"]["EnglishName"], ",",
-            cities[i]["Country"]["EnglishName"])
+                  cities[i]["Country"]["EnglishName"])
     # choosing the city
     while True:
         if len(cities) == 0:
@@ -891,11 +892,29 @@ def forecast(city):
         if len(cities) == 0:
             break
         C_key = cities[city_num-1]["Key"]
+        for i in range(len(keys)):
+            key = keys[i]
+            current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
+            current_data = json.loads(requests.get(current_URL).text)
+            FiveDay_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/%s?apikey=%s" % (C_key, key)
+            FiveDay_data = json.loads(requests.get(FiveDay_URL).text)
+            hourly12_URL = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/%s?apikey=%s" % (C_key, key)
+            hourly12_data = json.loads(requests.get(hourly12_URL).text)
+            try:
+                if type(current_data) == dict and current_data["Message"] == "The allowed number of requests has " \
+                                                                             "been exceeded.":
+                    pass
+                if type(FiveDay_data) == dict and FiveDay_data["Message"] == "The allowed number of requests has " \
+                                                                             "been exceeded.":
+                    pass
+                if type(hourly12_data) == dict and hourly12_data["Message"] == "The allowed number of requests has " \
+                                                                               "been exceeded.":
+                    pass
+            except KeyError:
+                break
 
         # current weather data
 
-        current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
-        current_data = json.loads(requests.get(current_URL).text)
         current_co = current_data[0]["WeatherText"]
         current_C_temp = current_data[0]["Temperature"]["Metric"]["Value"]
         current_F_temp = current_data[0]["Temperature"]["Imperial"]["Value"]
@@ -903,8 +922,6 @@ def forecast(city):
 
         # today forecast data
 
-        FiveDay_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/%s?apikey=%s" % (C_key, key)
-        FiveDay_data = json.loads(requests.get(FiveDay_URL).text)
         Today_date = FiveDay_data["DailyForecasts"][0]["Date"][:10]
         Today_text = FiveDay_data["Headline"]["Text"]
         Today_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9)
@@ -1159,7 +1176,7 @@ go_to_regex = re.compile(r"^go to (.*)$")
 print("""Hi, my name is Alex.I\'m a Virtual-Assistant(VA). I developed by Pedram Monazami
 I\'m not high-developed so I can do simple things, though I\'m becoming more useful more and more,
 so you can get later versions of me from my developer by emailing him : pedram.monazzami@gmail.com
-or visit www.github.com/pedram-mn/PVA.git to see full project
+or visit www.github.com/pedram-mn/VA.git to see full project
 
 enter \\help to see the full documentation of my functions""")
 
@@ -1190,5 +1207,5 @@ while True:
         send_Email(email_regex.search(command).group(1), email_regex.search(command).group(2))
     if re.match(go_to_regex, command) is not None:
         go_to(go_to_regex.search(command).group(1))
-    if re.match(forecast_regex, command) != None:
+    if re.match(forecast_regex, command) is not None:
         forecast(forecast_regex.search(command).group(1))
