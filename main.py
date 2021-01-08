@@ -922,11 +922,10 @@ def forecast(city):
 
         # today forecast data
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
         h1_time = hourly12_data[0]["DateTime"][11:16]
         h1_cond = hourly12_data[0]["IconPhrase"]
         h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
+        h1_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"])-32)*5/9, 2))
         h1_DayNight_st = hourly12_data[0]["IsDaylight"]
         h1_DayNight = "Night"
         h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
@@ -938,11 +937,10 @@ def forecast(city):
             h1_Pre = hourly12_data[0]["PrecipitationType"]
             h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
 
-        h2_date = hourly12_data[1]["DateTime"][:10]
         h2_time = hourly12_data[1]["DateTime"][11:16]
         h2_cond = hourly12_data[1]["IconPhrase"]
         h2_F_temp = hourly12_data[1]["Temperature"]["Value"]
-        h2_C_temp = str(round(float(hourly12_data[1]["Temperature"]["Value"]), 2))
+        h2_C_temp = str(round((float(hourly12_data[1]["Temperature"]["Value"])-32)*5/9, 2))
         h2_DayNight_st = hourly12_data[1]["IsDaylight"]
         h2_DayNight = "Night"
         h2_Pre_st = hourly12_data[1]["HasPrecipitation"]
@@ -954,11 +952,10 @@ def forecast(city):
             h2_Pre = hourly12_data[1]["PrecipitationType"]
             h2_Pre_intensity = hourly12_data[1]["PrecipitationIntensity"]
 
-        h3_date = hourly12_data[2]["DateTime"][:10]
         h3_time = hourly12_data[2]["DateTime"][11:16]
         h3_cond = hourly12_data[2]["IconPhrase"]
         h3_F_temp = hourly12_data[2]["Temperature"]["Value"]
-        h3_C_temp = str(round(float(hourly12_data[2]["Temperature"]["Value"]), 2))
+        h3_C_temp = str(round((float(hourly12_data[2]["Temperature"]["Value"])-32)*5/9, 2))
         h3_DayNight_st = hourly12_data[2]["IsDaylight"]
         h3_DayNight = "Night"
         h3_Pre_st = hourly12_data[2]["HasPrecipitation"]
@@ -970,11 +967,10 @@ def forecast(city):
             h3_Pre = hourly12_data[2]["PrecipitationType"]
             h3_Pre_intensity = hourly12_data[2]["PrecipitationIntensity"]
 
-        h4_date = hourly12_data[3]["DateTime"][:10]
         h4_time = hourly12_data[3]["DateTime"][11:16]
         h4_cond = hourly12_data[3]["IconPhrase"]
         h4_F_temp = hourly12_data[3]["Temperature"]["Value"]
-        h4_C_temp = str(round(float(hourly12_data[3]["Temperature"]["Value"]), 2))
+        h4_C_temp = str(round((float(hourly12_data[3]["Temperature"]["Value"])-32)*5/9, 2))
         h4_DayNight_st = hourly12_data[3]["IsDaylight"]
         h4_DayNight = "Night"
         h4_Pre_st = hourly12_data[3]["HasPrecipitation"]
@@ -985,12 +981,11 @@ def forecast(city):
         if h4_Pre_st:
             h4_Pre = hourly12_data[3]["PrecipitationType"]
             h4_Pre_intensity = hourly12_data[3]["PrecipitationIntensity"]
-
-        h5_date = hourly12_data[4]["DateTime"][:10]
+        
         h5_time = hourly12_data[4]["DateTime"][11:16]
         h5_cond = hourly12_data[4]["IconPhrase"]
         h5_F_temp = hourly12_data[4]["Temperature"]["Value"]
-        h5_C_temp = str(round(float(hourly12_data[4]["Temperature"]["Value"]), 2))
+        h5_C_temp = str(round((float(hourly12_data[4]["Temperature"]["Value"])-32)*5/9, 2))
         h5_DayNight_st = hourly12_data[4]["IsDaylight"]
         h5_DayNight = "Night"
         h5_Pre_st = hourly12_data[4]["HasPrecipitation"]
@@ -1002,27 +997,25 @@ def forecast(city):
             h5_Pre = hourly12_data[4]["PrecipitationType"]
             h5_Pre_intensity = hourly12_data[4]["PrecipitationIntensity"]
 
-        h6_date = hourly12_data[6]["DateTime"][:10]
-        h6_time = hourly12_data[6]["DateTime"][11:16]
-        h6_cond = hourly12_data[6]["IconPhrase"]
-        h6_F_temp = hourly12_data[6]["Temperature"]["Value"]
-        h6_C_temp = str(round(float(hourly12_data[6]["Temperature"]["Value"]), 2))
-        h6_DayNigh6t_st = hourly12_data[6]["IsDaylight"]
-        h6_DayNigh6t = "Nigh6t"
-        h6_Pre_st = hourly12_data[6]["HasPrecipitation"]
+        h6_time = hourly12_data[5]["DateTime"][11:16]
+        h6_cond = hourly12_data[5]["IconPhrase"]
+        h6_F_temp = hourly12_data[5]["Temperature"]["Value"]
+        h6_C_temp = str(round((float(hourly12_data[5]["Temperature"]["Value"])-32)*5/9, 2))
+        h6_DayNight_st = hourly12_data[5]["IsDaylight"]
+        h6_DayNight = "Night"
+        h6_Pre_st = hourly12_data[5]["HasPrecipitation"]
         h6_Pre = "None"
         h6_Pre_intensity = "None"
-        if h6_DayNigh6t_st:
-            h6_DayNigh6t = "Day"
+        if h6_DayNight_st:
+            h6_DayNight = "Day"
         if h6_Pre_st:
-            h6_Pre = hourly12_data[6]["PrecipitationType"]
-            h6_Pre_intensity = hourly12_data[6]["PrecipitationIntensity"]
+            h6_Pre = hourly12_data[5]["PrecipitationType"]
+            h6_Pre_intensity = hourly12_data[5]["PrecipitationIntensity"]
 
-        h7_date = hourly12_data[6]["DateTime"][:10]
         h7_time = hourly12_data[6]["DateTime"][11:16]
         h7_cond = hourly12_data[6]["IconPhrase"]
         h7_F_temp = hourly12_data[6]["Temperature"]["Value"]
-        h7_C_temp = str(round(float(hourly12_data[6]["Temperature"]["Value"]), 2))
+        h7_C_temp = str(round((float(hourly12_data[6]["Temperature"]["Value"])-32)*5/9, 2))
         h7_DayNight_st = hourly12_data[6]["IsDaylight"]
         h7_DayNight = "Night"
         h7_Pre_st = hourly12_data[6]["HasPrecipitation"]
@@ -1034,86 +1027,81 @@ def forecast(city):
             h7_Pre = hourly12_data[6]["PrecipitationType"]
             h7_Pre_intensity = hourly12_data[6]["PrecipitationIntensity"]
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
-        h1_time = hourly12_data[0]["DateTime"][11:16]
-        h1_cond = hourly12_data[0]["IconPhrase"]
-        h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
-        h1_DayNight_st = hourly12_data[0]["IsDaylight"]
-        h1_DayNight = "Night"
-        h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
-        h1_Pre = "None"
-        h1_Pre_intensity = "None"
-        if h1_DayNight_st:
-            h1_DayNight = "Day"
-        if h1_Pre_st:
-            h1_Pre = hourly12_data[0]["PrecipitationType"]
-            h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
+        h8_time = hourly12_data[7]["DateTime"][11:16]
+        h8_cond = hourly12_data[7]["IconPhrase"]
+        h8_F_temp = hourly12_data[7]["Temperature"]["Value"]
+        h8_C_temp = str(round((float(hourly12_data[7]["Temperature"]["Value"])-32)*5/9, 2))
+        h8_DayNight_st = hourly12_data[7]["IsDaylight"]
+        h8_DayNight = "Night"
+        h8_Pre_st = hourly12_data[7]["HasPrecipitation"]
+        h8_Pre = "None"
+        h8_Pre_intensity = "None"
+        if h8_DayNight_st:
+            h8_DayNight = "Day"
+        if h8_Pre_st:
+            h8_Pre = hourly12_data[7]["PrecipitationType"]
+            h8_Pre_intensity = hourly12_data[7]["PrecipitationIntensity"]
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
-        h1_time = hourly12_data[0]["DateTime"][11:16]
-        h1_cond = hourly12_data[0]["IconPhrase"]
-        h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
-        h1_DayNight_st = hourly12_data[0]["IsDaylight"]
-        h1_DayNight = "Night"
-        h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
-        h1_Pre = "None"
-        h1_Pre_intensity = "None"
-        if h1_DayNight_st:
-            h1_DayNight = "Day"
-        if h1_Pre_st:
-            h1_Pre = hourly12_data[0]["PrecipitationType"]
-            h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
+        h9_time = hourly12_data[8]["DateTime"][11:16]
+        h9_cond = hourly12_data[8]["IconPhrase"]
+        h9_F_temp = hourly12_data[8]["Temperature"]["Value"]
+        h9_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"])-32)*5/9, 2))
+        h9_DayNight_st = hourly12_data[8]["IsDaylight"]
+        h9_DayNight = "Night"
+        h9_Pre_st = hourly12_data[8]["HasPrecipitation"]
+        h9_Pre = "None"
+        h9_Pre_intensity = "None"
+        if h9_DayNight_st:
+            h9_DayNight = "Day"
+        if h9_Pre_st:
+            h9_Pre = hourly12_data[8]["PrecipitationType"]
+            h9_Pre_intensity = hourly12_data[8]["PrecipitationIntensity"]
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
-        h1_time = hourly12_data[0]["DateTime"][11:16]
-        h1_cond = hourly12_data[0]["IconPhrase"]
-        h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
-        h1_DayNight_st = hourly12_data[0]["IsDaylight"]
-        h1_DayNight = "Night"
-        h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
-        h1_Pre = "None"
-        h1_Pre_intensity = "None"
-        if h1_DayNight_st:
-            h1_DayNight = "Day"
-        if h1_Pre_st:
-            h1_Pre = hourly12_data[0]["PrecipitationType"]
-            h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
+        h10_time = hourly12_data[9]["DateTime"][11:16]
+        h10_cond = hourly12_data[9]["IconPhrase"]
+        h10_F_temp = hourly12_data[9]["Temperature"]["Value"]
+        h10_C_temp = str(round((float(hourly12_data[9]["Temperature"]["Value"])-32)*5/9, 2))
+        h10_DayNight_st = hourly12_data[9]["IsDaylight"]
+        h10_DayNight = "Night"
+        h10_Pre_st = hourly12_data[9]["HasPrecipitation"]
+        h10_Pre = "None"
+        h10_Pre_intensity = "None"
+        if h10_DayNight_st:
+            h10_DayNight = "Day"
+        if h10_Pre_st:
+            h10_Pre = hourly12_data[9]["PrecipitationType"]
+            h10_Pre_intensity = hourly12_data[9]["PrecipitationIntensity"]
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
-        h1_time = hourly12_data[0]["DateTime"][11:16]
-        h1_cond = hourly12_data[0]["IconPhrase"]
-        h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
-        h1_DayNight_st = hourly12_data[0]["IsDaylight"]
-        h1_DayNight = "Night"
-        h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
-        h1_Pre = "None"
-        h1_Pre_intensity = "None"
-        if h1_DayNight_st:
-            h1_DayNight = "Day"
-        if h1_Pre_st:
-            h1_Pre = hourly12_data[0]["PrecipitationType"]
-            h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
+        h11_time = hourly12_data[10]["DateTime"][11:16]
+        h11_cond = hourly12_data[10]["IconPhrase"]
+        h11_F_temp = hourly12_data[10]["Temperature"]["Value"]
+        h11_C_temp = str(round((float(hourly12_data[10]["Temperature"]["Value"])-32)*5/9, 2))
+        h11_DayNight_st = hourly12_data[10]["IsDaylight"]
+        h11_DayNight = "Night"
+        h11_Pre_st = hourly12_data[10]["HasPrecipitation"]
+        h11_Pre = "None"
+        h11_Pre_intensity = "None"
+        if h11_DayNight_st:
+            h11_DayNight = "Day"
+        if h11_Pre_st:
+            h11_Pre = hourly12_data[10]["PrecipitationType"]
+            h11_Pre_intensity = hourly12_data[10]["PrecipitationIntensity"]
 
-        h1_date = hourly12_data[0]["DateTime"][:10]
-        h1_time = hourly12_data[0]["DateTime"][11:16]
-        h1_cond = hourly12_data[0]["IconPhrase"]
-        h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round(float(hourly12_data[0]["Temperature"]["Value"]), 2))
-        h1_DayNight_st = hourly12_data[0]["IsDaylight"]
-        h1_DayNight = "Night"
-        h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
-        h1_Pre = "None"
-        h1_Pre_intensity = "None"
-        if h1_DayNight_st:
-            h1_DayNight = "Day"
-        if h1_Pre_st:
-            h1_Pre = hourly12_data[0]["PrecipitationType"]
-            h1_Pre_intensity = hourly12_data[0]["PrecipitationIntensity"]
-
+        h12_time = hourly12_data[11]["DateTime"][11:16]
+        h12_cond = hourly12_data[11]["IconPhrase"]
+        h12_F_temp = hourly12_data[11]["Temperature"]["Value"]
+        h12_C_temp = str(round((float(hourly12_data[11]["Temperature"]["Value"])-32)*5/9, 2))
+        h12_DayNight_st = hourly12_data[11]["IsDaylight"]
+        h12_DayNight = "Night"
+        h12_Pre_st = hourly12_data[11]["HasPrecipitation"]
+        h12_Pre = "None"
+        h12_Pre_intensity = "None"
+        if h12_DayNight_st:
+            h12_DayNight = "Day"
+        if h12_Pre_st:
+            h12_Pre = hourly12_data[11]["PrecipitationType"]
+            h12_Pre_intensity = hourly12_data[11]["PrecipitationIntensity"]
+            
         Today_date = FiveDay_data["DailyForecasts"][0]["Date"][:10]
         Today_text = FiveDay_data["Headline"]["Text"]
         Today_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9)
@@ -1198,7 +1186,7 @@ def forecast(city):
             day3_DayPre = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationType"]
             day3_DayPre_intensity = FiveDay_data["DailyForecasts"][3]["Day"]["PrecipitationIntensity"]
         if day3_NightPre_st:
-            day3_NightPre = FiveDay_data[0]["DailyForecasts"][3]["Night"]["PrecipitationType"]
+            day3_NightPre = FiveDay_data["DailyForecasts"][3]["Night"]["PrecipitationType"]
             day3_NightPre_intensity = FiveDay_data["DailyForecasts"][3]["Night"]["PrecipitationIntensity"]
 
         # 4 day later forecast data
@@ -1233,23 +1221,46 @@ def forecast(city):
     Temp : %sC (%sF)
     precipitation : %s
 -------------------------------------------------""" % (current_co, current_C_temp, current_F_temp, current_pre))
+        print("""12 hour forecast :
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s"""
+              % (h1_time, h1_DayNight, h1_cond, h1_C_temp,h1_F_temp, h1_Pre, h1_Pre_intensity, h2_time, h2_DayNight,
+                 h2_cond, h2_C_temp, h2_F_temp, h2_Pre,h2_Pre_intensity, h3_time, h3_DayNight, h3_cond, h3_C_temp,
+                 h3_F_temp, h3_Pre, h3_Pre_intensity, h4_time, h4_DayNight, h4_cond, h4_C_temp, h4_F_temp, h4_Pre,
+                 h4_Pre_intensity, h5_time, h5_DayNight, h5_cond, h5_C_temp,h5_F_temp, h5_Pre, h5_Pre_intensity, h6_time
+                 , h6_DayNight, h6_cond, h6_C_temp, h6_F_temp, h6_Pre,h6_Pre_intensity, h7_time,h7_DayNight, h7_cond,
+                 h7_C_temp, h7_F_temp, h7_Pre, h7_Pre_intensity, h8_time,h8_DayNight, h8_cond, h8_C_temp, h8_F_temp,
+                 h8_Pre, h8_Pre_intensity, h9_time,h9_DayNight, h9_cond, h9_C_temp, h9_F_temp, h9_Pre, h9_Pre_intensity,
+                 h10_time, h10_DayNight, h10_cond,h10_C_temp, h10_F_temp, h10_Pre, h10_Pre_intensity, h11_time,
+                 h11_DayNight, h11_cond, h11_C_temp,h11_F_temp, h11_Pre, h11_Pre_intensity, h12_time, h12_DayNight,
+                 h12_cond, h12_C_temp, h12_F_temp, h12_Pre, h12_Pre_intensity))
         print("""\n    FORECAST\n
         Today:  %s
           %s
-          lowest temp:  %sC (%sF)
+          lowest temp:  %sC (%sF
           highest temp: %sC (%sF)
-                          
+
           Day:
             %s
             precipitation: %s
             precipitation intensity: %s
-                          
+
           Night:
             %s
             precipitation: %s
-            precipitation intensity: %s""" % (Today_date, Today_text, Today_LowTemp_C, Today_LowTemp_F, Today_MaxTemp_C,
-                                              Today_MaxTemp_F, Today_DayCond, Today_DayPre, Today_DayPre_intensity,
-                                              Today_NightCond, Today_NightPre, Today_NightPre_intensity))
+            precipitation intensity: %s"""
+              % (Today_date, Today_text,Today_LowTemp_C, Today_LowTemp_F,Today_MaxTemp_C, Today_MaxTemp_F,Today_DayCond,
+                 Today_DayPre, Today_DayPre_intensity, Today_NightCond, Today_NightPre, Today_NightPre_intensity))
         print("""-------------------------------------------------
         %s
           lowest temp:  %sC (%sF)
