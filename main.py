@@ -11,8 +11,9 @@ import smtplib
 import webbrowser
 import string
 import os
-from bs4 import BeautifulSoup
 import json
+from lyricsgenius import Genius as Gn
+from bs4 import BeautifulSoup
 
 currentDT = datetime.datetime.now()
 
@@ -352,7 +353,7 @@ rectangular cube = %f""" % (side1, side2, side3, side1 * side2 * side3))
             radius, height = float(radius), float(height)
             print("""base radius = %f
 height = %f
-cone volume formula = (pi x radis^2)x(height)/3
+cone volume formula = (pi x radis²)x(height)/3
 cone volume = %f""" % (radius, height, math.pi * (radius ** 2) * height / 3))
         except:
             print("""wrong input, try again...\nor you can use VI documentation to learn right syntax""")
@@ -364,7 +365,7 @@ cone volume = %f""" % (radius, height, math.pi * (radius ** 2) * height / 3))
             b_side, height = float(b_side), float(height)
             print("""base side = %f
 height = %f
-square pyramid volume formula = (base side)^2 x (height)/3
+square pyramid volume formula = (base side)² x (height)/3
 square pyramid volume = %f""" % (b_side, height, (b_side ** 2) * height / 3))
         except:
             print("""wrong input, try again...\nor you can use VI documentation to learn right syntax""")
@@ -549,7 +550,7 @@ cosh(%f) = %f""" % (x, x, math.cosh(x)))
         try:
             y = float(y)
             print("""cosh(x) = %f
-x = ln | y + sqrt( y^2 - 1 ) |
+x = ln | y + √( y² - 1 ) |
 x = %f""" % (y, math.acosh(y)))
         except:
             print("""wrong input, try again...\nor you can use VI documentation to learn right syntax""")
@@ -571,7 +572,7 @@ sinh(%f) = %f""" % (x, x, math.sinh(x)))
         try:
             y = float(y)
             print("""sinh(x) = %f
-x = ln | y + sqrt( y^2 + 1 ) |
+x = ln | y + √( y² + 1 ) |
 x = %f""" % (y, math.asinh(y)))
         except:
             print("""wrong input, try again...\nor you can use VI documentation to learn right syntax""")
@@ -882,7 +883,7 @@ def forecast(city):
             if city_num > len(cities) or city_num == 0:
                 raise IndexError
             else:
-                city = cities[city_num-1]
+                city = cities[city_num - 1]
                 break
         except ValueError:
             print("wrong format, try again...")
@@ -891,7 +892,7 @@ def forecast(city):
     while True:
         if len(cities) == 0:
             break
-        C_key = cities[city_num-1]["Key"]
+        C_key = cities[city_num - 1]["Key"]
         for i in range(len(keys)):
             key = keys[i]
             current_URL = "http://dataservice.accuweather.com/currentconditions/v1/%s?apikey=%s" % (C_key, key)
@@ -925,7 +926,7 @@ def forecast(city):
         h1_time = hourly12_data[0]["DateTime"][11:16]
         h1_cond = hourly12_data[0]["IconPhrase"]
         h1_F_temp = hourly12_data[0]["Temperature"]["Value"]
-        h1_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"])-32)*5/9, 2))
+        h1_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h1_DayNight_st = hourly12_data[0]["IsDaylight"]
         h1_DayNight = "Night"
         h1_Pre_st = hourly12_data[0]["HasPrecipitation"]
@@ -940,7 +941,7 @@ def forecast(city):
         h2_time = hourly12_data[1]["DateTime"][11:16]
         h2_cond = hourly12_data[1]["IconPhrase"]
         h2_F_temp = hourly12_data[1]["Temperature"]["Value"]
-        h2_C_temp = str(round((float(hourly12_data[1]["Temperature"]["Value"])-32)*5/9, 2))
+        h2_C_temp = str(round((float(hourly12_data[1]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h2_DayNight_st = hourly12_data[1]["IsDaylight"]
         h2_DayNight = "Night"
         h2_Pre_st = hourly12_data[1]["HasPrecipitation"]
@@ -955,7 +956,7 @@ def forecast(city):
         h3_time = hourly12_data[2]["DateTime"][11:16]
         h3_cond = hourly12_data[2]["IconPhrase"]
         h3_F_temp = hourly12_data[2]["Temperature"]["Value"]
-        h3_C_temp = str(round((float(hourly12_data[2]["Temperature"]["Value"])-32)*5/9, 2))
+        h3_C_temp = str(round((float(hourly12_data[2]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h3_DayNight_st = hourly12_data[2]["IsDaylight"]
         h3_DayNight = "Night"
         h3_Pre_st = hourly12_data[2]["HasPrecipitation"]
@@ -970,7 +971,7 @@ def forecast(city):
         h4_time = hourly12_data[3]["DateTime"][11:16]
         h4_cond = hourly12_data[3]["IconPhrase"]
         h4_F_temp = hourly12_data[3]["Temperature"]["Value"]
-        h4_C_temp = str(round((float(hourly12_data[3]["Temperature"]["Value"])-32)*5/9, 2))
+        h4_C_temp = str(round((float(hourly12_data[3]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h4_DayNight_st = hourly12_data[3]["IsDaylight"]
         h4_DayNight = "Night"
         h4_Pre_st = hourly12_data[3]["HasPrecipitation"]
@@ -981,11 +982,11 @@ def forecast(city):
         if h4_Pre_st:
             h4_Pre = hourly12_data[3]["PrecipitationType"]
             h4_Pre_intensity = hourly12_data[3]["PrecipitationIntensity"]
-        
+
         h5_time = hourly12_data[4]["DateTime"][11:16]
         h5_cond = hourly12_data[4]["IconPhrase"]
         h5_F_temp = hourly12_data[4]["Temperature"]["Value"]
-        h5_C_temp = str(round((float(hourly12_data[4]["Temperature"]["Value"])-32)*5/9, 2))
+        h5_C_temp = str(round((float(hourly12_data[4]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h5_DayNight_st = hourly12_data[4]["IsDaylight"]
         h5_DayNight = "Night"
         h5_Pre_st = hourly12_data[4]["HasPrecipitation"]
@@ -1000,7 +1001,7 @@ def forecast(city):
         h6_time = hourly12_data[5]["DateTime"][11:16]
         h6_cond = hourly12_data[5]["IconPhrase"]
         h6_F_temp = hourly12_data[5]["Temperature"]["Value"]
-        h6_C_temp = str(round((float(hourly12_data[5]["Temperature"]["Value"])-32)*5/9, 2))
+        h6_C_temp = str(round((float(hourly12_data[5]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h6_DayNight_st = hourly12_data[5]["IsDaylight"]
         h6_DayNight = "Night"
         h6_Pre_st = hourly12_data[5]["HasPrecipitation"]
@@ -1015,7 +1016,7 @@ def forecast(city):
         h7_time = hourly12_data[6]["DateTime"][11:16]
         h7_cond = hourly12_data[6]["IconPhrase"]
         h7_F_temp = hourly12_data[6]["Temperature"]["Value"]
-        h7_C_temp = str(round((float(hourly12_data[6]["Temperature"]["Value"])-32)*5/9, 2))
+        h7_C_temp = str(round((float(hourly12_data[6]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h7_DayNight_st = hourly12_data[6]["IsDaylight"]
         h7_DayNight = "Night"
         h7_Pre_st = hourly12_data[6]["HasPrecipitation"]
@@ -1030,7 +1031,7 @@ def forecast(city):
         h8_time = hourly12_data[7]["DateTime"][11:16]
         h8_cond = hourly12_data[7]["IconPhrase"]
         h8_F_temp = hourly12_data[7]["Temperature"]["Value"]
-        h8_C_temp = str(round((float(hourly12_data[7]["Temperature"]["Value"])-32)*5/9, 2))
+        h8_C_temp = str(round((float(hourly12_data[7]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h8_DayNight_st = hourly12_data[7]["IsDaylight"]
         h8_DayNight = "Night"
         h8_Pre_st = hourly12_data[7]["HasPrecipitation"]
@@ -1045,7 +1046,7 @@ def forecast(city):
         h9_time = hourly12_data[8]["DateTime"][11:16]
         h9_cond = hourly12_data[8]["IconPhrase"]
         h9_F_temp = hourly12_data[8]["Temperature"]["Value"]
-        h9_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"])-32)*5/9, 2))
+        h9_C_temp = str(round((float(hourly12_data[0]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h9_DayNight_st = hourly12_data[8]["IsDaylight"]
         h9_DayNight = "Night"
         h9_Pre_st = hourly12_data[8]["HasPrecipitation"]
@@ -1060,7 +1061,7 @@ def forecast(city):
         h10_time = hourly12_data[9]["DateTime"][11:16]
         h10_cond = hourly12_data[9]["IconPhrase"]
         h10_F_temp = hourly12_data[9]["Temperature"]["Value"]
-        h10_C_temp = str(round((float(hourly12_data[9]["Temperature"]["Value"])-32)*5/9, 2))
+        h10_C_temp = str(round((float(hourly12_data[9]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h10_DayNight_st = hourly12_data[9]["IsDaylight"]
         h10_DayNight = "Night"
         h10_Pre_st = hourly12_data[9]["HasPrecipitation"]
@@ -1075,7 +1076,7 @@ def forecast(city):
         h11_time = hourly12_data[10]["DateTime"][11:16]
         h11_cond = hourly12_data[10]["IconPhrase"]
         h11_F_temp = hourly12_data[10]["Temperature"]["Value"]
-        h11_C_temp = str(round((float(hourly12_data[10]["Temperature"]["Value"])-32)*5/9, 2))
+        h11_C_temp = str(round((float(hourly12_data[10]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h11_DayNight_st = hourly12_data[10]["IsDaylight"]
         h11_DayNight = "Night"
         h11_Pre_st = hourly12_data[10]["HasPrecipitation"]
@@ -1090,7 +1091,7 @@ def forecast(city):
         h12_time = hourly12_data[11]["DateTime"][11:16]
         h12_cond = hourly12_data[11]["IconPhrase"]
         h12_F_temp = hourly12_data[11]["Temperature"]["Value"]
-        h12_C_temp = str(round((float(hourly12_data[11]["Temperature"]["Value"])-32)*5/9, 2))
+        h12_C_temp = str(round((float(hourly12_data[11]["Temperature"]["Value"]) - 32) * 5 / 9, 2))
         h12_DayNight_st = hourly12_data[11]["IsDaylight"]
         h12_DayNight = "Night"
         h12_Pre_st = hourly12_data[11]["HasPrecipitation"]
@@ -1101,14 +1102,16 @@ def forecast(city):
         if h12_Pre_st:
             h12_Pre = hourly12_data[11]["PrecipitationType"]
             h12_Pre_intensity = hourly12_data[11]["PrecipitationIntensity"]
-            
+
         Today_date = FiveDay_data["DailyForecasts"][0]["Date"][:10]
         Today_text = FiveDay_data["Headline"]["Text"]
-        Today_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]-32)*5/9)
-                                    , 2))
+        Today_LowTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"] - 32) * 5 / 9)
+                  , 2))
         Today_LowTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]
-        Today_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]-32)*5/9)
-                                    , 2))
+        Today_MaxTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"] - 32) * 5 / 9)
+                  , 2))
         Today_MaxTemp_F = FiveDay_data["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]
         Today_DayCond = FiveDay_data["DailyForecasts"][0]["Day"]["IconPhrase"]
         Today_NightCond = FiveDay_data["DailyForecasts"][0]["Night"]["IconPhrase"]
@@ -1126,11 +1129,13 @@ def forecast(city):
         # 1 day later forecast data
 
         day1_date = FiveDay_data["DailyForecasts"][1]["Date"][:10]
-        day1_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]-32)*5/9),
-                                   2))
+        day1_LowTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"] - 32) * 5 / 9),
+                  2))
         day1_LowTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Minimum"]["Value"]
-        day1_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]-32)*5/9),
-                                   2))
+        day1_MaxTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"] - 32) * 5 / 9),
+                  2))
         day1_MaxTemp_F = FiveDay_data["DailyForecasts"][1]["Temperature"]["Maximum"]["Value"]
         day1_DayCond = FiveDay_data["DailyForecasts"][1]["Day"]["IconPhrase"]
         day1_NightCond = FiveDay_data["DailyForecasts"][1]["Night"]["IconPhrase"]
@@ -1148,11 +1153,13 @@ def forecast(city):
         # 2 day later forecast data
 
         day2_date = FiveDay_data["DailyForecasts"][2]["Date"][:10]
-        day2_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]-32)*5/9),
-                                   2))
+        day2_LowTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"] - 32) * 5 / 9),
+                  2))
         day2_LowTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Minimum"]["Value"]
-        day2_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]-32)*5/9),
-                                   2))
+        day2_MaxTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"] - 32) * 5 / 9),
+                  2))
         day2_MaxTemp_F = FiveDay_data["DailyForecasts"][2]["Temperature"]["Maximum"]["Value"]
         day2_DayCond = FiveDay_data["DailyForecasts"][2]["Day"]["IconPhrase"]
         day2_NightCond = FiveDay_data["DailyForecasts"][2]["Night"]["IconPhrase"]
@@ -1170,11 +1177,13 @@ def forecast(city):
         # 3 day later forecast data
 
         day3_date = FiveDay_data["DailyForecasts"][3]["Date"][:10]
-        day3_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]-32)*5/9),
-                                   2))
+        day3_LowTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"] - 32) * 5 / 9),
+                  2))
         day3_LowTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Minimum"]["Value"]
-        day3_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]-32)*5/9),
-                                   2))
+        day3_MaxTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"] - 32) * 5 / 9),
+                  2))
         day3_MaxTemp_F = FiveDay_data["DailyForecasts"][3]["Temperature"]["Maximum"]["Value"]
         day3_DayCond = FiveDay_data["DailyForecasts"][3]["Day"]["IconPhrase"]
         day3_NightCond = FiveDay_data["DailyForecasts"][3]["Night"]["IconPhrase"]
@@ -1192,11 +1201,13 @@ def forecast(city):
         # 4 day later forecast data
 
         day4_date = FiveDay_data["DailyForecasts"][4]["Date"][:10]
-        day4_LowTemp_C = str(round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]-32)*5/9),
-                                   2))
+        day4_LowTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"] - 32) * 5 / 9),
+                  2))
         day4_LowTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Minimum"]["Value"]
-        day4_MaxTemp_C = str(round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]-32)*5/9),
-                                   2))
+        day4_MaxTemp_C = str(
+            round(float((FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"] - 32) * 5 / 9),
+                  2))
         day4_MaxTemp_F = FiveDay_data["DailyForecasts"][4]["Temperature"]["Maximum"]["Value"]
         day4_DayCond = FiveDay_data["DailyForecasts"][4]["Day"]["IconPhrase"]
         day4_NightCond = FiveDay_data["DailyForecasts"][4]["Night"]["IconPhrase"]
@@ -1218,37 +1229,39 @@ def forecast(city):
         print(city["EnglishName"], ",", city["AdministrativeArea"]["EnglishName"], ",", city["Country"]["EnglishName"])
         print(current_data[0]["LocalObservationDateTime"][:10], " ", current_data[0]["LocalObservationDateTime"][11:16])
         print("""\n    %s
-    Temp : %sC (%sF)
+    Temp : %sCْ (%sF)
     precipitation : %s
 -------------------------------------------------""" % (current_co, current_C_temp, current_F_temp, current_pre))
         print("""12 hour forecast :
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s
-    %s : %s   %s , %sC (%sF)   precipitation: %s  intensity: %s"""
-              % (h1_time, h1_DayNight, h1_cond, h1_C_temp,h1_F_temp, h1_Pre, h1_Pre_intensity, h2_time, h2_DayNight,
-                 h2_cond, h2_C_temp, h2_F_temp, h2_Pre,h2_Pre_intensity, h3_time, h3_DayNight, h3_cond, h3_C_temp,
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s
+    %s : %s   %s , %sCْ (%sF)   precipitation: %s  intensity: %s"""
+              % (h1_time, h1_DayNight, h1_cond, h1_C_temp, h1_F_temp, h1_Pre, h1_Pre_intensity, h2_time, h2_DayNight,
+                 h2_cond, h2_C_temp, h2_F_temp, h2_Pre, h2_Pre_intensity, h3_time, h3_DayNight, h3_cond, h3_C_temp,
                  h3_F_temp, h3_Pre, h3_Pre_intensity, h4_time, h4_DayNight, h4_cond, h4_C_temp, h4_F_temp, h4_Pre,
-                 h4_Pre_intensity, h5_time, h5_DayNight, h5_cond, h5_C_temp,h5_F_temp, h5_Pre, h5_Pre_intensity, h6_time
-                 , h6_DayNight, h6_cond, h6_C_temp, h6_F_temp, h6_Pre,h6_Pre_intensity, h7_time,h7_DayNight, h7_cond,
-                 h7_C_temp, h7_F_temp, h7_Pre, h7_Pre_intensity, h8_time,h8_DayNight, h8_cond, h8_C_temp, h8_F_temp,
-                 h8_Pre, h8_Pre_intensity, h9_time,h9_DayNight, h9_cond, h9_C_temp, h9_F_temp, h9_Pre, h9_Pre_intensity,
-                 h10_time, h10_DayNight, h10_cond,h10_C_temp, h10_F_temp, h10_Pre, h10_Pre_intensity, h11_time,
-                 h11_DayNight, h11_cond, h11_C_temp,h11_F_temp, h11_Pre, h11_Pre_intensity, h12_time, h12_DayNight,
+                 h4_Pre_intensity, h5_time, h5_DayNight, h5_cond, h5_C_temp, h5_F_temp, h5_Pre, h5_Pre_intensity,
+                 h6_time
+                 , h6_DayNight, h6_cond, h6_C_temp, h6_F_temp, h6_Pre, h6_Pre_intensity, h7_time, h7_DayNight, h7_cond,
+                 h7_C_temp, h7_F_temp, h7_Pre, h7_Pre_intensity, h8_time, h8_DayNight, h8_cond, h8_C_temp, h8_F_temp,
+                 h8_Pre, h8_Pre_intensity, h9_time, h9_DayNight, h9_cond, h9_C_temp, h9_F_temp, h9_Pre,
+                 h9_Pre_intensity,
+                 h10_time, h10_DayNight, h10_cond, h10_C_temp, h10_F_temp, h10_Pre, h10_Pre_intensity, h11_time,
+                 h11_DayNight, h11_cond, h11_C_temp, h11_F_temp, h11_Pre, h11_Pre_intensity, h12_time, h12_DayNight,
                  h12_cond, h12_C_temp, h12_F_temp, h12_Pre, h12_Pre_intensity))
         print("""\n    FORECAST\n
         Today:  %s
           %s
-          lowest temp:  %sC (%sF
-          highest temp: %sC (%sF)
+          lowest temp:  %sCْ (%sF
+          highest temp: %sCْ (%sF)
 
           Day:
             %s
@@ -1259,12 +1272,13 @@ def forecast(city):
             %s
             precipitation: %s
             precipitation intensity: %s"""
-              % (Today_date, Today_text,Today_LowTemp_C, Today_LowTemp_F,Today_MaxTemp_C, Today_MaxTemp_F,Today_DayCond,
-                 Today_DayPre, Today_DayPre_intensity, Today_NightCond, Today_NightPre, Today_NightPre_intensity))
+              % (
+              Today_date, Today_text, Today_LowTemp_C, Today_LowTemp_F, Today_MaxTemp_C, Today_MaxTemp_F, Today_DayCond,
+              Today_DayPre, Today_DayPre_intensity, Today_NightCond, Today_NightPre, Today_NightPre_intensity))
         print("""-------------------------------------------------
         %s
-          lowest temp:  %sC (%sF)
-          highest temp: %sC (%sF)
+          lowest temp:  %sCْ (%sF)
+          highest temp: %sCْ (%sF)
 
           Day:
             %s
@@ -1279,8 +1293,8 @@ def forecast(city):
                                               day1_NightPre, day1_NightPre_intensity))
         print("""-------------------------------------------------
         %s
-          lowest temp:  %sC (%sF)
-          highest temp: %sC (%sF)
+          lowest temp:  %sCْ (%sF)
+          highest temp: %sCْ (%sF)
 
           Day:
             %s
@@ -1295,8 +1309,8 @@ def forecast(city):
                                               day2_NightPre, day2_NightPre_intensity))
         print("""-------------------------------------------------
         %s
-          lowest temp:  %sC (%sF)
-          highest temp: %sC (%sF)
+          lowest temp:  %sCْ (%sF)
+          highest temp: %sCْ (%sF)
 
           Day:
             %s
@@ -1311,8 +1325,8 @@ def forecast(city):
                                               day3_NightPre, day3_NightPre_intensity))
         print("""-------------------------------------------------
         %s
-          lowest temp:  %sC (%sF)
-          highest temp: %sC (%sF)
+          lowest temp:  %sCْ (%sF)
+          highest temp: %sCْ (%sF)
 
           Day:
             %s
@@ -1326,6 +1340,16 @@ def forecast(city):
                                               day4_DayCond, day4_DayPre, day4_DayPre_intensity, day4_NightCond,
                                               day4_NightPre, day4_NightPre_intensity))
         break
+
+
+# defining lyrics function
+def lyrics(name, artist):
+    gn = Gn("t1H9TF03VUJlzlF1QX1gtuO-UO3q29IyYtr9dSp21X0Q3vVHIQ4uB2-YSLrzJ1D6")
+    gn.excluded_terms = ["(Remix)", "(Live)"]
+    artist = gn.search_artist(artist, max_songs=0)
+    song = artist.song(name)
+    print(song)
+    print(song.lyrics)
 
 
 # defining copy function
@@ -1374,6 +1398,8 @@ email_regex = re.compile(r"^send email\((.*),(.*)\)$")
 time_regex = re.compile(r"^time$")
 forecast_regex = re.compile(r"^weather\((.*)\)$")
 go_to_regex = re.compile(r"^go to (.*)$")
+lyrics_regex = re.compile(r"^lyrics\((.*),(.*)\)$")
+
 # main section of code
 
 print("""Hi, my name is Alex.I\'m a Virtual-Assistant(VA). I developed by Pedram Monazami
@@ -1412,3 +1438,5 @@ while True:
         go_to(go_to_regex.search(command).group(1))
     if re.match(forecast_regex, command) is not None:
         forecast(forecast_regex.search(command).group(1))
+    if re.match(lyrics_regex, command) is not None:
+        lyrics(lyrics_regex.search(command).group(1), lyrics_regex.search(command).group(2))

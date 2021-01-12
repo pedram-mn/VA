@@ -1,2 +1,15 @@
 weather api key (owm): c906da717db4970eb7f9e6b75abbf59b
+
 github token : 55771e363aea2e5725be2330c81547e2873a89e9
+
+metabrainz token : nHDpSkqsG0cjdCsRaUVxo8Ax5m0X4PARydGgFp3P
+
+spotify client id : d11e2ffdc6d54ef3b54b10cdb0d63a1f
+
+spotify client secret : 81ac9783231c4fb2b4aaa221e92cf2e2
+
+genius client id : dnXyF5lpNG2heKIh9TQEJKsatleaQBC7MSgHX1FGZAhK-vT8CSfHRF4-oDgfriNA
+
+genius client secret : Ffkf7aOwjNj6TndNawkjRkEmeWk4iC87Ox-d5PzUC6-HomLqhresFsp7Bw9cgLzPeWIb0gIzQR5WiNWnN-L6Yg
+
+genius client acces token : t1H9TF03VUJlzlF1QX1gtuO-UO3q29IyYtr9dSp21X0Q3vVHIQ4uB2-YSLrzJ1D6
