@@ -1402,13 +1402,6 @@ lyrics_regex = re.compile(r"^lyrics\((.*),(.*)\)$")
 
 # main section of code
 
-print("""Hi, my name is Alex.I\'m a Virtual-Assistant(VA). I developed by Pedram Monazami
-I\'m not high-developed so I can do simple things, though I\'m becoming more useful more and more,
-so you can get later versions of me from my developer by emailing him : pedram.monazzami@gmail.com
-or visit www.github.com/pedram-mn/VA.git to see full project
-
-enter \\help to see the full documentation of my functions""")
-
 while True:
     command = input(">>").lower()
 
